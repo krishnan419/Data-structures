@@ -1,0 +1,115 @@
+class Main 
+{
+Node head;
+  class Node
+  {
+    int data;
+    Node next;
+    Node(int d)
+    {
+      data=d;
+      next=null;
+    }
+  }
+  public void insert(int new_data)
+  {
+    Node new_node= new Node(new_data);
+    if(head==null)
+    {
+    head=new Node(new_data);
+    return;
+    }
+    new_node.next=null;
+    Node tail=head;
+    while(tail.next!=null)
+    {tail=tail.next;}
+    tail.next=new_node;
+    new_node.next=null;
+    return;
+  }
+  public void TraverseBefore()
+  {
+    Node printNode=head;
+    System.out.print("Before sorting: ");
+    while(printNode!=null)
+    {
+      System.out.print(printNode.data+" ");
+      printNode=printNode.next;
+    }
+  }
+  public void selectSort(Main list)
+  {
+    Main.Node current=head;
+    Main.Node currentprev=current;
+    Main.Node current2;
+    Main.Node current2prev;
+    Main.Node min;
+    Main.Node minprev;
+    Main.Node temp;
+    while(current!=null)
+    {
+    min = current ;
+    minprev = current ;
+    current2prev=current;
+    current2=current.next;
+    while(current2!=null)
+    {
+      if(min.data>current2.data)
+      {
+        min=current2;
+        minprev=current2prev;
+
+      }
+        current2prev = current2;
+        current2=current2.next;
+    }
+       if(current==head)
+    {
+      head=min;
+    
+    }
+    else{
+    currentprev.next=min;
+    }
+    temp=min.next;
+    minprev.next=current;
+    min.next=current.next;
+    current.next=temp;
+    currentprev=min;
+    current=min.next;
+    }
+  }
+  public void TraverseAfter()
+  {
+    Node printNode=head;
+    System.out.print("After sorting: ");
+    while(printNode!=null)
+    {
+      System.out.print(printNode.data+" ");
+      printNode=printNode.next;
+    }
+  }
+public static void main(String[] args)
+{
+  Main list= new Main();
+  list.insert(15);
+  list.insert(1);
+  list.insert(17);
+  list.insert(96);
+  list.insert(65);
+  list.insert(78);
+  list.insert(26);
+  list.insert(3);
+  list.insert(2);
+  list.insert(39);
+  list.insert(22);
+  list.insert(50);
+  list.insert(69);
+  list.insert(70);
+  list.insert(63);
+  list.insert(57);
+  list.TraverseBefore();
+  list.selectSort(list);
+  list.TraverseAfter();
+}
+}

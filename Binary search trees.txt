@@ -1,0 +1,145 @@
+public class Main{
+  public TreeNode root;
+  public class TreeNode{
+    int data;
+    TreeNode leftChild;
+    TreeNode rightChild;
+    public TreeNode (int data)
+    {
+      this.data=data;
+    }
+    public int getData(){
+      return data;
+    }
+    public void setLeftChild(TreeNode leftChild)
+    {
+      this.leftChild=leftChild;
+    }
+    public void setRightChild(TreeNode rightChild)
+    {
+      this.rightChild=rightChild;
+    }
+    public TreeNode getLeftChild()
+    {
+      return leftChild;
+    }
+    public TreeNode getRightChild()
+    {
+      return rightChild;
+    }
+    public void insert(int data)
+  {
+    if(data>=this.data)
+    {
+      if(this.rightChild==null)
+      this.rightChild= new TreeNode(data);
+      else
+      this.rightChild.insert(data);
+    }
+    else
+    {
+      if(this.leftChild==null)
+      this.leftChild= new TreeNode(data);
+      else
+      this.leftChild.insert(data);
+    }
+  }
+    public void inTrav(TreeNode root)
+  {
+    if(root!=null)
+    {
+    inTrav(root.leftChild);
+    System.out.print(root.data+" ");
+    inTrav(root.rightChild);
+    }
+  }
+    
+  }
+  public void insert(int data)
+  {
+    if(root==null)
+    this.root=new TreeNode(data);
+    else 
+    root.insert(data);
+  }
+  public void inOrder()
+  {
+    if(root==null)
+    return;
+    else
+    root.inTrav(root);
+  }
+  public void Delete(int data)
+    {
+      TreeNode current=this.root;
+      TreeNode parent=this.root;
+      TreeNode parent2=this.root;
+      TreeNode parent2prev=this.root;
+      boolean isLeftChild=false;
+      if(current==null)
+      return;
+      while(current!=null&&current.getData()!=data)
+      {
+        parent=current;
+        if(data<current.getData())
+        {
+          current=current.getLeftChild();
+          isLeftChild=true;
+        }
+        else{
+          current=current.getRightChild();
+          isLeftChild=false;
+        }
+      }
+        if(current.getLeftChild()!=null&&current.getRightChild()!=null)
+        {
+          if(current==root)
+          {
+            parent=current;
+            parent2=current;
+            parent2prev=current;
+            current=current.getLeftChild();
+            while(current!=null)
+            {
+              parent2prev=parent2;
+              parent2=current;
+              current=current.getRightChild();
+            }
+            if(parent2.getLeftChild()!=null)
+            {
+              parent2prev.setRightChild(parent2.getLeftChild());
+            }
+            parent2.setLeftChild(parent.getLeftChild());
+            parent2.setRightChild(parent.getRightChild());
+            root=parent2;
+          }
+        }
+
+    }
+  public static void main(String[] args)
+  {
+    Main list= new Main();
+    list.insert(100);
+    list.insert(50);
+    list.insert(200);
+    list.insert(150);
+    list.insert(300);
+    list.insert(25);
+    list.insert(75);
+    list.insert(12);
+    list.insert(37);
+    list.insert(125);
+    list.insert(175);
+    list.insert(250);
+    list.insert(320);
+    list.insert(67);
+    list.insert(87);
+    list.insert(94);
+    list.insert(89);
+    list.insert(92);
+    list.insert(88);
+    list.inOrder();
+    list.Delete(100);
+    list.inOrder();
+  }
+}
